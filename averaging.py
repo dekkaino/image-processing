@@ -1,7 +1,9 @@
-def getFiles():
-    from pathlib import Path
-    from tkinter import filedialog
+from pathlib import Path
+from tkinter import filedialog
+import cv2
+import numpy as np
 
+def getFiles():
     dir = ''
     fld = filedialog.askdirectory(initialdir = dir) 
 
@@ -13,11 +15,15 @@ def getFiles():
 
     return files
 
+def saveImage(image):
+    #型変換>16bitグレースケール
+    image_Int16 = image.astype(np.uint16)
+    
+    #平均化した画像の書き出し
+    cv2.imwrite('../averaged.tif',image_Int16)
+
 
 def main():
-    import cv2
-    import numpy as np
-    
     #ファイルパスの一覧を取得
     files = getFiles()
     numberOfImages = float(len(files))
@@ -34,11 +40,7 @@ def main():
     for image in images:
         averagesImage += image
 
-    #型変換>16bitグレースケール
-    averagesImage_Int16 = averagesImage.astype(np.uint16)
-    
-    #平均化した画像の書き出し
-    cv2.imwrite('averaged.tif',averagesImage_Int16)
+    saveImage(averagesImage)
 
 main()
 
