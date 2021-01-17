@@ -1,14 +1,3 @@
-def writeCSV():
-    import pandas as pd
-
-    dataset = pd.read_csv('iris.csv', index_col=0)
-    filename = 'iris_new'
-
-    for i in range(10):
-        tempname = filename + str(i)
-        print(tempname)
-        dataset.to_csv(tempname + '.csv')  # csv ファイルとして保存
-
 def getFiles():
     from pathlib import Path
     from tkinter import filedialog
